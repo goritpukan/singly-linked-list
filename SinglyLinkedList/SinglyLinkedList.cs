@@ -1,19 +1,15 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace SinglyLinkedListLibrary
+﻿namespace SinglyLinkedListLibrary
 {
     public class SinglyLinkedList
     {
         private Node? head;
-        public Node Head { get => head; }
-
         public void AddFirst(short value)
         {
             Node newNode = new Node(value);
             newNode.Next = head;
             head = newNode;
         }
-        public Node? FindFirstMultipleOf(int divisor)
+        public short? FindFirstMultipleOf(int divisor)
         {
             if(head == null) throw new EmptyListException();
             var current = head;
@@ -21,7 +17,7 @@ namespace SinglyLinkedListLibrary
             {
                 if (current.Data % divisor == 0)
                 {
-                    return current;
+                    return current.Data;
                 }
                 current = current.Next;
             }
@@ -30,7 +26,6 @@ namespace SinglyLinkedListLibrary
 
         private decimal FindAverage()
         {
-            if(head == null) throw new EmptyListException();
             short sum = 0;
             int count = 0;
             var current = head;
@@ -40,13 +35,13 @@ namespace SinglyLinkedListLibrary
                 count++;
                 current = current.Next;
             }
-
-            if (count == 0) throw new EmptyListException();
             return (decimal)sum / count;
         }
 
         public short GetMultiplyElementsBelowAverage()
         {
+            if(head == null) throw new EmptyListException();
+            
             short result = 0;
             decimal average = FindAverage();
             var current = head;
@@ -69,10 +64,10 @@ namespace SinglyLinkedListLibrary
             return result;
         }
 
-        public SinglyLinkedList GetNewListWithElementsMultipleOf(int divisor)
+        public SinglyLinkedList GetAllMultipleOf(int divisor) 
         {
-            if(head == null) throw new EmptyListException();
             if(divisor == 0) throw new DivideByZeroException();
+            
             var list = new SinglyLinkedList();
             var current = head;
             while (current != null)
@@ -107,7 +102,8 @@ namespace SinglyLinkedListLibrary
                         prev.Next = current.Next;
                         current = current.Next;
                     }
-                }else
+                }
+                else
                 {
                     prev = current;
                     current = current.Next;  
