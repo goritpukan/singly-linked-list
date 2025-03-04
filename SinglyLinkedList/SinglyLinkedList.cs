@@ -86,7 +86,6 @@
             decimal average = FindAverage();
             Node current = head;
             Node prev = null;
-            int position = 0;
             
             while (current != null)
             {
