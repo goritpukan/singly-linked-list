@@ -1,6 +1,8 @@
-﻿namespace SinglyLinkedListLibrary
+﻿using System.Collections;
+
+namespace SinglyLinkedListLibrary
 {
-    public class SinglyLinkedList
+    public class SinglyLinkedList : IEnumerable<short>
     {
         private Node? head;
         public void AddFirst(short value)
@@ -38,11 +40,11 @@
             return (decimal)sum / count;
         }
 
-        public short GetMultiplyElementsBelowAverage()
+        public int GetMultiplyElementsBelowAverage()
         {
             if(head == null) throw new EmptyListException();
             
-            short result = 0;
+            int result = 0;
             decimal average = FindAverage();
             var current = head;
             while (current != null)
@@ -109,5 +111,16 @@
                 }
             }
         }
+        public IEnumerator<short> GetEnumerator()
+        {
+            var current = head;
+            while (current != null)
+            {
+                yield return current.Data;
+                current = current.Next;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
